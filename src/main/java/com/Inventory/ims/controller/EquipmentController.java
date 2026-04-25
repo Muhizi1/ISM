@@ -7,7 +7,7 @@ import com.Inventory.ims.service.EquipmentCategoryService;
 import com.Inventory.ims.service.EquipmentService;
 import com.Inventory.ims.service.AuditTrailService;
 import com.Inventory.ims.service.UserService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

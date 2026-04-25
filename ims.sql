@@ -1,48 +1,65 @@
+-- ================================================================
 -- Inventory Management System Database Schema
--- Created for Airtel Challenge - End User Equipment Management
+-- Created for Airtel Challenge - End User Equipment Inventory Management
+-- SysAdmin Credentials: Username: 24rp01201, Password: 24rp01530
+-- ================================================================
 
--- Create Database
-CREATE DATABASE IF NOT EXISTS ims_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- Create database
+CREATE DATABASE IF NOT EXISTS ims_db 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
 USE ims_db;
 
--- Users Table for Authentication
+-- ================================================================
+-- DROP EXISTING TABLES AND VIEWS (Reverse dependency order)
+-- ================================================================
+
+DROP VIEW IF EXISTS current_assignments;
+DROP VIEW IF EXISTS equipment_summary;
+DROP VIEW IF EXISTS maintenance_summary;
+DROP VIEW IF EXISTS user_assignment_summary;
+DROP VIEW IF EXISTS equipment_status_summary;
+
+DROP TABLE IF EXISTS audit_trail;
+DROP TABLE IF EXISTS maintenance_records;
+DROP TABLE IF EXISTS assignments;
+DROP TABLE IF EXISTS equipment;
+DROP TABLE IF EXISTS equipment_categories;
+DROP TABLE IF EXISTS users;
+
+-- ================================================================
+-- TABLE STRUCTURES
+-- ================================================================
+
+-- Users Table
 CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
-    role ENUM('SYSADMIN', 'MANAGER', 'USER') NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    role ENUM('SYSADMIN', 'MANAGER', 'USER') NOT NULL DEFAULT 'USER',
     department VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    active BOOLEAN DEFAULT TRUE
-);
-
--- Departments Table
-CREATE TABLE departments (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) UNIQUE NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    active BOOLEAN DEFAULT TRUE
+    active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 -- Equipment Categories Table
 CREATE TABLE equipment_categories (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    active BOOLEAN DEFAULT TRUE
+    active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
--- Equipment/Assets Table
+-- Equipment Table
 CREATE TABLE equipment (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    asset_tag VARCHAR(50) UNIQUE NOT NULL,
+    asset_tag VARCHAR(50) NOT NULL UNIQUE,
     serial_number VARCHAR(100),
     category_id BIGINT,
     brand VARCHAR(50),
@@ -51,13 +68,13 @@ CREATE TABLE equipment (
     purchase_date DATE,
     purchase_cost DECIMAL(10,2),
     warranty_expiry DATE,
-    status ENUM('AVAILABLE', 'ASSIGNED', 'UNDER_MAINTENANCE', 'RETIRED', 'LOST') DEFAULT 'AVAILABLE',
-    condition_status ENUM('EXCELLENT', 'GOOD', 'FAIR', 'POOR') DEFAULT 'EXCELLENT',
+    status ENUM('AVAILABLE', 'ASSIGNED', 'UNDER_MAINTENANCE', 'RETIRED', 'LOST') NOT NULL DEFAULT 'AVAILABLE',
+    condition_status ENUM('EXCELLENT', 'GOOD', 'FAIR', 'POOR') NOT NULL DEFAULT 'EXCELLENT',
     location VARCHAR(100),
     notes TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    active BOOLEAN DEFAULT TRUE,
+    active BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (category_id) REFERENCES equipment_categories(id)
 );
 
@@ -72,7 +89,7 @@ CREATE TABLE assignments (
     actual_return_date TIMESTAMP NULL,
     return_condition ENUM('EXCELLENT', 'GOOD', 'FAIR', 'POOR'),
     return_notes TEXT,
-    status ENUM('ACTIVE', 'RETURNED', 'OVERDUE') DEFAULT 'ACTIVE',
+    status ENUM('ACTIVE', 'RETURNED', 'OVERDUE') NOT NULL DEFAULT 'ACTIVE',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (equipment_id) REFERENCES equipment(id),
@@ -85,7 +102,7 @@ CREATE TABLE maintenance_records (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     equipment_id BIGINT NOT NULL,
     maintenance_type ENUM('PREVENTIVE', 'CORRECTIVE', 'UPGRADE') NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT,
     cost DECIMAL(10,2),
     performed_by VARCHAR(100),
     performed_date DATE,
@@ -103,105 +120,84 @@ CREATE TABLE audit_trail (
     equipment_id BIGINT,
     user_id BIGINT,
     action VARCHAR(50) NOT NULL,
+    action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     description TEXT,
     old_values TEXT,
     new_values TEXT,
-    performed_by BIGINT NOT NULL,
+    performed_by BIGINT,
     performed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (equipment_id) REFERENCES equipment(id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (performed_by) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Insert Default Data
+-- ================================================================
+-- DATA INITIALIZATION
+-- ================================================================
 
--- Insert Default Equipment Categories
+-- Categories
 INSERT INTO equipment_categories (name, description) VALUES
-('Laptop', 'Portable computers for employees'),
-('Desktop', 'Desktop computers for office use'),
-('Mobile Phone', 'Company-issued mobile devices'),
-('Tablet', 'Tablet computers for field work'),
-('Monitor', 'External display monitors'),
-('Printer', 'Office printing equipment'),
-('Server', 'Server equipment and infrastructure');
+('Laptop', 'Laptop computers and notebooks'),
+('Desktop', 'Desktop computers and workstations'),
+('Mobile Phone', 'Smartphones and mobile devices'),
+('Tablet', 'Tablet computers'),
+('Monitor', 'Computer monitors and displays'),
+('Printer', 'Printers and scanners'),
+('Other', 'Other equipment types');
 
--- Insert Default Departments
-INSERT INTO departments (name, description) VALUES
-('IT', 'Information Technology Department'),
-('HR', 'Human Resources Department'),
-('Finance', 'Finance and Accounting'),
-('Operations', 'Operations Department'),
-('Marketing', 'Marketing and Sales'),
-('Administration', 'General Administration');
+-- Users
+-- SysAdmin (24rp01201 / 24rp01530)
+INSERT INTO users (username, password, full_name, email, role, department, active) VALUES
+('24rp01201', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'System Administrator', 'sysadmin@airtel.com', 'SYSADMIN', 'IT', TRUE),
+('john_doe', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'John Doe', 'john.doe@airtel.com', 'USER', 'HR', TRUE),
+('jane_smith', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'Jane Smith', 'jane.smith@airtel.com', 'MANAGER', 'IT', TRUE);
 
--- Insert SysAdmin User (Username: 24rp01201, Password: 24rp01530)
--- Password is BCrypt encoded for "24rp01530"
-INSERT INTO users (username, password, full_name, email, role, department) VALUES
-('24rp01201', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'HABINEZA Samuel', 'samuel.habineza@airtel.com', 'SYSADMIN', 'IT');
-
--- Insert Sample Manager User
-INSERT INTO users (username, password, full_name, email, role, department) VALUES
-('manager1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'MURINDA Noella Kayitesi', 'noella.murinda@airtel.com', 'MANAGER', 'IT');
-
--- Insert Sample Equipment
+-- Equipment
 INSERT INTO equipment (asset_tag, serial_number, category_id, brand, model, specifications, purchase_date, purchase_cost, warranty_expiry, status, condition_status, location) VALUES
-('LAP001', 'SN123456789', 1, 'Dell', 'Latitude 7420', 'Intel i7, 16GB RAM, 512GB SSD', '2024-01-15', 1200.00, '2025-01-15', 'AVAILABLE', 'EXCELLENT', 'IT Office'),
-('LAP002', 'SN987654321', 1, 'HP', 'EliteBook 840', 'Intel i5, 8GB RAM, 256GB SSD', '2024-02-20', 950.00, '2025-02-20', 'ASSIGNED', 'GOOD', 'HR Department'),
-('DT001', 'SN456789123', 2, 'Dell', 'OptiPlex 7090', 'Intel i7, 16GB RAM, 1TB SSD', '2024-01-10', 800.00, '2025-01-10', 'AVAILABLE', 'EXCELLENT', 'IT Office'),
-('MOB001', 'SN789123456', 3, 'Samsung', 'Galaxy S23', '256GB Storage, 5G Enabled', '2024-03-01', 750.00, '2025-03-01', 'ASSIGNED', 'GOOD', 'Operations');
+('LAP001', 'DL5420202301', 1, 'Dell', 'Latitude 5420', 'Intel i5-1135G7, 8GB RAM, 256GB SSD, 14" FHD', '2023-01-15', 850.00, '2025-01-15', 'AVAILABLE', 'EXCELLENT', 'IT Office'),
+('LAP002', 'HP840202302', 1, 'HP', 'EliteBook 840', 'Intel i7-1165G7, 16GB RAM, 512GB SSD, 14" FHD', '2023-02-20', 1200.00, '2025-02-20', 'ASSIGNED', 'GOOD', 'HR Department'),
+('DT001', 'DT7090202301', 2, 'Dell', 'OptiPlex 7090', 'Intel i5-11500, 8GB RAM, 256GB SSD', '2023-03-10', 750.00, '2025-03-10', 'AVAILABLE', 'GOOD', 'Finance Office'),
+('MB001', 'AP132023001', 3, 'Apple', 'iPhone 13', 'A15 Bionic, 128GB, 6.1" Super Retina XDR', '2023-04-05', 650.00, '2024-04-05', 'ASSIGNED', 'EXCELLENT', 'Operations');
 
--- Create Indexes for Better Performance
-CREATE INDEX idx_equipment_asset_tag ON equipment(asset_tag);
-CREATE INDEX idx_equipment_serial_number ON equipment(serial_number);
-CREATE INDEX idx_equipment_status ON equipment(status);
-CREATE INDEX idx_assignments_equipment_id ON assignments(equipment_id);
-CREATE INDEX idx_assignments_user_id ON assignments(user_id);
-CREATE INDEX idx_assignments_status ON assignments(status);
-CREATE INDEX idx_audit_trail_equipment_id ON audit_trail(equipment_id);
-CREATE INDEX idx_audit_trail_performed_at ON audit_trail(performed_at);
+-- Sample Assignments
+INSERT INTO assignments (equipment_id, user_id, assigned_by, assigned_date, status) VALUES
+(2, 2, 1, CURRENT_TIMESTAMP, 'ACTIVE'),
+(4, 3, 1, CURRENT_TIMESTAMP, 'ACTIVE');
+
+-- ================================================================
+-- INDEXES AND VIEWS
+-- ================================================================
+
 CREATE INDEX idx_users_username ON users(username);
-CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_equipment_asset_tag ON equipment(asset_tag);
+CREATE INDEX idx_assignments_status ON assignments(status);
 
--- Create Views for Reporting
-
--- Equipment Status Summary View
-CREATE VIEW equipment_status_summary AS
+-- Current Assignments View
+CREATE VIEW current_assignments AS
 SELECT 
-    ec.name as category_name,
+    e.asset_tag, 
+    e.brand, 
+    e.model,
+    u.full_name as assigned_to,
+    u.department,
+    a.assigned_date,
+    a.status as assignment_status
+FROM equipment e
+JOIN assignments a ON e.id = a.equipment_id AND a.actual_return_date IS NULL
+JOIN users u ON a.user_id = u.id
+WHERE e.status = 'ASSIGNED' AND e.active = TRUE;
+
+-- Equipment Summary View
+CREATE VIEW equipment_summary AS
+SELECT 
+    c.name as category_name,
     e.status,
     COUNT(*) as count,
     SUM(e.purchase_cost) as total_value
 FROM equipment e
-JOIN equipment_categories ec ON e.category_id = ec.id
+JOIN equipment_categories c ON e.category_id = c.id
 WHERE e.active = TRUE
-GROUP BY ec.name, e.status;
+GROUP BY c.name, e.status;
 
--- User Assignment Summary View
-CREATE VIEW user_assignment_summary AS
-SELECT 
-    u.username,
-    u.full_name,
-    d.name as department,
-    COUNT(a.id) as assigned_items,
-    COUNT(CASE WHEN a.status = 'OVERDUE' THEN 1 END) as overdue_items
-FROM users u
-LEFT JOIN assignments a ON u.id = a.user_id AND a.status = 'ACTIVE'
-LEFT JOIN departments d ON u.department = d.name
-WHERE u.active = TRUE
-GROUP BY u.id, u.username, u.full_name, d.name;
-
--- Maintenance Summary View
-CREATE VIEW maintenance_summary AS
-SELECT 
-    e.asset_tag,
-    e.brand,
-    e.model,
-    ec.name as category,
-    COUNT(mr.id) as maintenance_count,
-    SUM(mr.cost) as total_maintenance_cost,
-    MAX(mr.performed_date) as last_maintenance_date
-FROM equipment e
-JOIN equipment_categories ec ON e.category_id = ec.id
-LEFT JOIN maintenance_records mr ON e.id = mr.equipment_id
-WHERE e.active = TRUE
-GROUP BY e.id, e.asset_tag, e.brand, e.model, ec.name;
+-- ================================================================
+-- END OF FILE
+-- ================================================================

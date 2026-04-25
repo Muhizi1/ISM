@@ -2,7 +2,7 @@ package com.Inventory.ims.controller;
 
 import com.Inventory.ims.model.*;
 import com.Inventory.ims.service.*;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;

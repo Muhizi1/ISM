@@ -30,22 +30,34 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Check if data already exists
-        if (userRepository.count() > 0) {
-            return; // Data already initialized
-        }
+        // Always ensure the admin user exists with the correct password on every startup.
+        // This fixes stale/wrong BCrypt hashes left in the database from previous runs.
+        ensureAdminUser();
 
-        // Initialize categories
-        initializeCategories();
-        
-        // Initialize users
-        initializeUsers();
-        
-        // Initialize equipment
-        initializeEquipment();
-        
-        // Initialize assignments
-        initializeAssignments();
+        // Only seed the rest of the data if the database is empty
+        if (userRepository.count() <= 1) {
+            initializeCategories();
+            initializeSampleUsers();
+            initializeEquipment();
+            initializeAssignments();
+        }
+    }
+
+    /**
+     * Always called on startup. Creates or resets the admin user password so
+     * that the credentials 24rp01201 / 24rp01530 always work.
+     */
+    private void ensureAdminUser() {
+        User admin = userRepository.findByUsername("24rp01201").orElse(new User());
+        admin.setUsername("24rp01201");
+        admin.setPassword(passwordEncoder.encode("24rp01530"));
+        admin.setFullName("System Administrator");
+        admin.setEmail("sysadmin@airtel.com");
+        admin.setRole(User.UserRole.SYSADMIN);
+        admin.setDepartment("IT");
+        admin.setActive(true);
+        userRepository.save(admin);
+        System.out.println("[DataInitializer] Admin user '24rp01201' has been created/updated successfully.");
     }
 
     private void initializeCategories() {
@@ -85,38 +97,33 @@ public class DataInitializer implements CommandLineRunner {
         categoryRepository.save(other);
     }
 
-    private void initializeUsers() {
-        // Create SysAdmin user with correct BCrypt password for "24rp01530"
-        User sysAdmin = new User();
-        sysAdmin.setUsername("24rp01201");
-        sysAdmin.setPassword(passwordEncoder.encode("24rp01530"));
-        sysAdmin.setFullName("System Administrator");
-        sysAdmin.setEmail("sysadmin@airtel.com");
-        sysAdmin.setRole(User.UserRole.SYSADMIN);
-        sysAdmin.setDepartment("IT");
-        sysAdmin.setActive(true);
-        userRepository.save(sysAdmin);
+    private void initializeSampleUsers() {
+        // NOTE: The admin user (24rp01201) is created/updated by ensureAdminUser() on every startup.
+        // Only create the sample non-admin users here to avoid a duplicate key constraint violation.
 
-        // Create sample users
-        User johnDoe = new User();
-        johnDoe.setUsername("john_doe");
-        johnDoe.setPassword(passwordEncoder.encode("password123"));
-        johnDoe.setFullName("John Doe");
-        johnDoe.setEmail("john.doe@airtel.com");
-        johnDoe.setRole(User.UserRole.USER);
-        johnDoe.setDepartment("HR");
-        johnDoe.setActive(true);
-        userRepository.save(johnDoe);
+        if (userRepository.findByUsername("john_doe").isEmpty()) {
+            User johnDoe = new User();
+            johnDoe.setUsername("john_doe");
+            johnDoe.setPassword(passwordEncoder.encode("password123"));
+            johnDoe.setFullName("John Doe");
+            johnDoe.setEmail("john.doe@airtel.com");
+            johnDoe.setRole(User.UserRole.USER);
+            johnDoe.setDepartment("HR");
+            johnDoe.setActive(true);
+            userRepository.save(johnDoe);
+        }
 
-        User janeSmith = new User();
-        janeSmith.setUsername("jane_smith");
-        janeSmith.setPassword(passwordEncoder.encode("password123"));
-        janeSmith.setFullName("Jane Smith");
-        janeSmith.setEmail("jane.smith@airtel.com");
-        janeSmith.setRole(User.UserRole.MANAGER);
-        janeSmith.setDepartment("IT");
-        janeSmith.setActive(true);
-        userRepository.save(janeSmith);
+        if (userRepository.findByUsername("jane_smith").isEmpty()) {
+            User janeSmith = new User();
+            janeSmith.setUsername("jane_smith");
+            janeSmith.setPassword(passwordEncoder.encode("password123"));
+            janeSmith.setFullName("Jane Smith");
+            janeSmith.setEmail("jane.smith@airtel.com");
+            janeSmith.setRole(User.UserRole.MANAGER);
+            janeSmith.setDepartment("IT");
+            janeSmith.setActive(true);
+            userRepository.save(janeSmith);
+        }
     }
 
     private void initializeEquipment() {
