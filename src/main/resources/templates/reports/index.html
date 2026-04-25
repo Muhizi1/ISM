@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Reports - IMS</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title}">System Reports</h1>
+            </div>
+
+            <div class="row">
+                <!-- Summary Report Cards -->
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body text-center">
+                            <h3>Inventory Summary</h3>
+                            <p class="display-4" th:text="${stats?.totalEquipment ?: '0'}">0</p>
+                            <p>Total Assets tracked</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-success text-white shadow">
+                        <div class="card-body text-center">
+                            <h3>Assignment History</h3>
+                            <p class="display-4" th:text="${stats?.totalAssignments ?: '0'}">0</p>
+                            <p>Total assignments processed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-warning text-dark shadow">
+                        <div class="card-body text-center">
+                            <h3>Maintenance Log</h3>
+                            <p class="display-4" th:text="${stats?.totalMaintenance ?: '0'}">0</p>
+                            <p>Total records maintained</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Detailed Reports</h6>
+                </div>
+                <div class="card-body">
+                    <p>Select a report to generate and download.</p>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Full Inventory List
+                            <span class="badge bg-primary rounded-pill"><i class="fas fa-file-pdf"></i> PDF</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Overdue Assignments Report
+                            <span class="badge bg-danger rounded-pill"><i class="fas fa-file-excel"></i> CSV</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Maintenance Cost Analysis
+                            <span class="badge bg-warning text-dark rounded-pill"><i class="fas fa-file-pdf"></i> PDF</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            User Asset Allocation
+                            <span class="badge bg-info rounded-pill"><i class="fas fa-file-pdf"></i> PDF</span>
+                        </a>
+                    </div>
+                    <div class="mt-4 alert alert-info">
+                        <i class="fas fa-info-circle"></i> <strong>Note:</strong> Advanced reporting features are optimized for the monthly audit cycle.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

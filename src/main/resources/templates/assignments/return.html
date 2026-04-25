@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Return Equipment</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Return Equipment</h1>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="card-title mb-0">Return Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6>Assignment Summary:</h6>
+                                <p>
+                                    <strong>Equipment:</strong> <span th:text="${assignment.equipment.assetTag + ' (' + assignment.equipment.brand + ' ' + assignment.equipment.model + ')'}">Equipment</span><br>
+                                    <strong>Assigned To:</strong> <span th:text="${assignment.user.fullName}">User</span><br>
+                                    <strong>Assigned Date:</strong> <span th:text="${#temporals.format(assignment.assignedDate, 'MMM dd, yyyy')}">Date</span>
+                                </p>
+                            </div>
+
+                            <form th:action="@{/assignments/return/{id}(id=${assignment.id})}" method="post">
+                                <div class="mb-3">
+                                    <label for="returnCondition" class="form-label">Return Condition Status</label>
+                                    <select class="form-select" id="returnCondition" name="returnCondition" required>
+                                        <option th:each="condition : ${conditions}" 
+                                                th:value="${condition}" th:text="${condition}">Condition</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="returnNotes" class="form-label">Return Notes</label>
+                                    <textarea class="form-control" id="returnNotes" name="returnNotes" rows="3" placeholder="Any issues or observations during return..."></textarea>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/assignments}" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-undo"></i> Process Return
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

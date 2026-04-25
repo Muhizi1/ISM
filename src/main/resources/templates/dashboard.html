@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Dashboard - Inventory Management System</title>
+</head>
+<body>
+    <div th:replace="~{layout :: header}"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div th:replace="~{layout :: sidebar}"></div>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <i class="fas fa-calendar"></i> This Week
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Total Equipment
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.totalEquipment ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-laptop fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Available
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.availableEquipment ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Assigned
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.assignedEquipment ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-exchange-alt fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Under Maintenance
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.underMaintenance ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-tools fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Statistics Row -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Total Users
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.totalUsers ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Active Assignments
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.activeAssignments ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-handshake fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Overdue Assignments
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.overdueAssignments ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Scheduled Maintenance
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${stats?.scheduledMaintenance ?: '0'}">
+                                            0
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="row">
+                    <!-- Recent Assignments -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <i class="fas fa-exchange-alt"></i> Recent Assignments
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div th:if="${#lists.isEmpty(recentAssignments)}" class="text-center text-muted py-3">
+                                    No recent assignments found.
+                                </div>
+                                <div th:each="assignment : ${recentAssignments}" class="border-bottom py-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <strong th:text="${assignment.equipment.assetTag}">Equipment Tag</strong>
+                                            <small class="text-muted d-block" th:text="${assignment.user.fullName}">User Name</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <small class="text-muted" th:text="${#temporals.format(assignment.assignedDate, 'MMM dd, yyyy')}">Date</small>
+                                            <div>
+                                                <span class="badge bg-success" th:text="${assignment.status}">Status</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Maintenance -->
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-warning">
+                                    <i class="fas fa-tools"></i> Recent Maintenance
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div th:if="${#lists.isEmpty(recentMaintenance)}" class="text-center text-muted py-3">
+                                    No recent maintenance records found.
+                                </div>
+                                <div th:each="maintenance : ${recentMaintenance}" class="border-bottom py-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <strong th:text="${maintenance.equipment.assetTag}">Equipment Tag</strong>
+                                            <small class="text-muted d-block" th:text="${maintenance.maintenanceType}">Type</small>
+                                        </div>
+                                        <div class="text-end">
+                                            <small class="text-muted" th:text="${#temporals.format(maintenance.maintenanceDate, 'MMM dd, yyyy')}">Date</small>
+                                            <div>
+                                                <span class="badge bg-warning" th:text="${maintenance.maintenanceType}">Type</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row" sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                    <div class="col-12">
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-info">
+                                    <i class="fas fa-bolt"></i> Quick Actions
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3 mb-2">
+                                        <a th:href="@{/equipment/add}" class="btn btn-primary btn-block w-100">
+                                            <i class="fas fa-plus"></i> Add Equipment
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <a th:href="@{/assignments/assign}" class="btn btn-success btn-block w-100">
+                                            <i class="fas fa-exchange-alt"></i> Assign Equipment
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <a th:href="@{/maintenance/add}" class="btn btn-warning btn-block w-100">
+                                            <i class="fas fa-tools"></i> Schedule Maintenance
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <a th:href="@{/reports}" class="btn btn-info btn-block w-100">
+                                            <i class="fas fa-chart-bar"></i> View Reports
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

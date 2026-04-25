@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Edit Equipment</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Edit Equipment</h1>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <form th:action="@{/equipment/edit/{id}(id=${equipment.id})}" th:object="${equipment}" method="post">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="assetTag" class="form-label">Asset Tag</label>
+                                        <input type="text" class="form-control" id="assetTag" th:field="*{assetTag}" required>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('assetTag')}" th:errors="*{assetTag}"></div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="serialNumber" class="form-label">Serial Number</label>
+                                        <input type="text" class="form-control" id="serialNumber" th:field="*{serialNumber}">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="category" class="form-label">Category</label>
+                                        <select class="form-select" id="category" th:field="*{category}" required>
+                                            <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}">Category</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="brand" class="form-label">Brand</label>
+                                        <input type="text" class="form-control" id="brand" th:field="*{brand}" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="model" class="form-label">Model</label>
+                                    <input type="text" class="form-control" id="model" th:field="*{model}" required>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select class="form-select" id="status" th:field="*{status}" required>
+                                            <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}">Status</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="conditionStatus" class="form-label">Condition</label>
+                                        <select class="form-select" id="conditionStatus" th:field="*{conditionStatus}" required>
+                                            <option th:each="c : ${conditions}" th:value="${c}" th:text="${c}">Condition</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="location" th:field="*{location}">
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/equipment}" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                                    <button type="submit" class="btn btn-warning">
+                                        <i class="fas fa-database"></i> Update in Database
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Equipment Details</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Equipment Details</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a th:href="@{/equipment/edit/{id}(id=${equipment.id})}" class="btn btn-sm btn-outline-warning" 
+                           sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <a th:href="@{/equipment/delete/{id}(id=${equipment.id})}" class="btn btn-sm btn-outline-danger" 
+                           sec:authorize="hasRole('SYSADMIN')"
+                           onclick="return confirm('Are you sure you want to delete this equipment?')">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-laptop fa-5x text-primary"></i>
+                            </div>
+                            <h4 th:text="${equipment.assetTag}">TAG001</h4>
+                            <p class="text-muted" th:text="${equipment.category?.name}">Category</p>
+                            <span th:class="|badge bg-${equipment.status.name() == 'AVAILABLE' ? 'success' : 
+                                (equipment.status.name() == 'ASSIGNED' ? 'info' : 
+                                (equipment.status.name() == 'UNDER_MAINTENANCE' ? 'warning' : 'danger'))}|"
+                                  th:text="${equipment.status}">Status</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-8 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Technical Specifications</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tr>
+                                    <th width="30%">Brand</th>
+                                    <td th:text="${equipment.brand}">Brand</td>
+                                </tr>
+                                <tr>
+                                    <th>Model</th>
+                                    <td th:text="${equipment.model}">Model</td>
+                                </tr>
+                                <tr>
+                                    <th>Serial Number</th>
+                                    <td th:text="${equipment.serialNumber ?: 'N/A'}">Serial</td>
+                                </tr>
+                                <tr>
+                                    <th>Condition</th>
+                                    <td>
+                                        <span th:class="|badge bg-${equipment.conditionStatus.name() == 'EXCELLENT' ? 'success' : 'primary'}|"
+                                              th:text="${equipment.conditionStatus}">Condition</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Location</th>
+                                    <td th:text="${equipment.location ?: 'N/A'}">Location</td>
+                                </tr>
+                                <tr>
+                                    <th>Created Date</th>
+                                    <td th:text="${#temporals.format(equipment.createdAt, 'MMM dd, yyyy HH:mm')}">Date</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-info">Current Assignment</h6>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${equipment.status.name() == 'ASSIGNED' && equipment.currentAssignment != null}">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6">
+                                        <h5><i class="fas fa-user"></i> <span th:text="${equipment.currentAssignment.user.fullName}">User Name</span></h5>
+                                        <p class="text-muted mb-1">Email: <span th:text="${equipment.currentAssignment.user.email}">Email</span></p>
+                                        <p class="text-muted">Assigned On: <span th:text="${#temporals.format(equipment.currentAssignment.assignedDate, 'MMM dd, yyyy')}">Date</span></p>
+                                    </div>
+                                    <div class="col-md-6 text-md-end">
+                                        <a th:href="@{/assignments/return/{id}(id=${equipment.currentAssignment.id})}" class="btn btn-info">
+                                            <i class="fas fa-undo"></i> Process Return
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${equipment.status.name() != 'ASSIGNED'}" class="text-center py-3">
+                                <p class="text-muted mb-0">This equipment is currently not assigned.</p>
+                                <a th:href="@{/assignments/assign(equipmentId=${equipment.id})}" class="btn btn-success mt-2" 
+                                   th:if="${equipment.status.name() == 'AVAILABLE'}">
+                                    <i class="fas fa-exchange-alt"></i> Assign Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

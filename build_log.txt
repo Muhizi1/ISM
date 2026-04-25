@@ -1,0 +1,516 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.ims:inventory-management-system >-----------------
+[INFO] Building IMS 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ inventory-management-system >>>
+[WARNING] The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ inventory-management-system ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 24 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ inventory-management-system ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 29 source files with javac [debug release 17] to target\classes
+[INFO] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/config/SecurityConfig.java: C:\Users\habin\Downloads\ims\src\main\java\com\Inventory\ims\config\SecurityConfig.java uses or overrides a deprecated API.
+[INFO] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/config/SecurityConfig.java: Recompile with -Xlint:deprecation for details.
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[9,2] cannot find symbol
+  symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[10,2] cannot find symbol
+  symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[6,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[12,2] cannot find symbol
+  symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[13,2] cannot find symbol
+  symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[8,2] cannot find symbol
+  symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[9,2] cannot find symbol
+  symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[10,2] cannot find symbol
+  symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[11,2] cannot find symbol
+  symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[8,2] cannot find symbol
+  symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[9,2] cannot find symbol
+  symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[6,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[10,2] cannot find symbol
+  symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[11,2] cannot find symbol
+  symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/CategoryController.java:[8,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/config/SecurityConfig.java:[11,72] cannot find symbol
+  symbol:   class WebSecurityConfigurerAdapter
+  location: package org.springframework.security.config.annotation.web.configuration
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/config/SecurityConfig.java:[17,37] cannot find symbol
+  symbol: class WebSecurityConfigurerAdapter
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/UserController.java:[6,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/EquipmentController.java:[10,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/MaintenanceController.java:[5,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/AssignmentController.java:[5,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[13,6] cannot find symbol
+  symbol:   class Id
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[14,6] cannot find symbol
+  symbol:   class GeneratedValue
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[14,32] cannot find symbol
+  symbol:   variable GenerationType
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[17,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[18,6] cannot find symbol
+  symbol:   class NotBlank
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[19,6] cannot find symbol
+  symbol:   class Size
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[22,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[25,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[28,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[31,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[34,6] cannot find symbol
+  symbol:   class OneToMany
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[34,49] cannot find symbol
+  symbol:   variable CascadeType
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[34,74] cannot find symbol
+  symbol:   variable FetchType
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[37,6] cannot find symbol
+  symbol:   class PrePersist
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[43,6] cannot find symbol
+  symbol:   class PreUpdate
+  location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[16,6] cannot find symbol
+  symbol:   class Id
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[17,6] cannot find symbol
+  symbol:   class GeneratedValue
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[17,32] cannot find symbol
+  symbol:   variable GenerationType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[20,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[21,6] cannot find symbol
+  symbol:   class NotBlank
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[22,6] cannot find symbol
+  symbol:   class Size
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[25,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[26,6] cannot find symbol
+  symbol:   class Size
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[29,6] cannot find symbol
+  symbol:   class ManyToOne
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[29,24] cannot find symbol
+  symbol:   variable FetchType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[30,6] cannot find symbol
+  symbol:   class JoinColumn
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[33,6] cannot find symbol
+  symbol:   class Size
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[36,6] cannot find symbol
+  symbol:   class Size
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[39,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[42,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[46,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[49,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[53,6] cannot find symbol
+  symbol:   class Enumerated
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[53,17] cannot find symbol
+  symbol:   variable EnumType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[54,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[57,6] cannot find symbol
+  symbol:   class Enumerated
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[57,17] cannot find symbol
+  symbol:   variable EnumType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[58,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[61,6] cannot find symbol
+  symbol:   class Size
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[64,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[67,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[70,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[73,6] cannot find symbol
+  symbol:   class Column
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[76,6] cannot find symbol
+  symbol:   class OneToMany
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[76,50] cannot find symbol
+  symbol:   variable CascadeType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[76,75] cannot find symbol
+  symbol:   variable FetchType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[79,6] cannot find symbol
+  symbol:   class OneToMany
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[79,50] cannot find symbol
+  symbol:   variable CascadeType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[79,75] cannot find symbol
+  symbol:   variable FetchType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[82,6] cannot find symbol
+  symbol:   class OneToMany
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[82,50] cannot find symbol
+  symbol:   variable CascadeType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[82,75] cannot find symbol
+  symbol:   variable FetchType
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[93,6] cannot find symbol
+  symbol:   class PrePersist
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[99,6] cannot find symbol
+  symbol:   class PreUpdate
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[167,6] cannot find symbol
+  symbol:   class Transient
+  location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[12,6] cannot find symbol
+  symbol:   class Id
+  location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[13,6] cannot find symbol
+  symbol:   class GeneratedValue
+  location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[13,32] cannot find symbol
+  symbol:   variable GenerationType
+  location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[16,6] cannot find symbol
+  symbol:   class ManyToOne
+  location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[16,24] cannot find symbol
+  symbol:   variable FetchType
+  location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[17,6] cannot find symbol
+  symbol:   class JoinColumn
+  location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[20,6] cannot find symbol
+  symbol:   class ManyToOne
+  location: class com.Inventory.ims.model.AuditTrail
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.931 s
+[INFO] Finished at: 2026-04-24T23:58:44+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project inventory-management-system: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[9,2] cannot find symbol
+[ERROR]   symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[10,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[6,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[12,2] cannot find symbol
+[ERROR]   symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[13,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[8,2] cannot find symbol
+[ERROR]   symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[9,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[10,2] cannot find symbol
+[ERROR]   symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[11,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[8,2] cannot find symbol
+[ERROR]   symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[9,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[4,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[5,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[6,36] package javax.validation.constraints does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[10,2] cannot find symbol
+[ERROR]   symbol: class Entity
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[11,2] cannot find symbol
+[ERROR]   symbol: class Table
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/User.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/MaintenanceRecord.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Assignment.java:[3,1] package javax.persistence does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/CategoryController.java:[8,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/config/SecurityConfig.java:[11,72] cannot find symbol
+[ERROR]   symbol:   class WebSecurityConfigurerAdapter
+[ERROR]   location: package org.springframework.security.config.annotation.web.configuration
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/config/SecurityConfig.java:[17,37] cannot find symbol
+[ERROR]   symbol: class WebSecurityConfigurerAdapter
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/UserController.java:[6,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/EquipmentController.java:[10,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/MaintenanceController.java:[5,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/controller/AssignmentController.java:[5,24] package javax.validation does not exist
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[13,6] cannot find symbol
+[ERROR]   symbol:   class Id
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[14,6] cannot find symbol
+[ERROR]   symbol:   class GeneratedValue
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[14,32] cannot find symbol
+[ERROR]   symbol:   variable GenerationType
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[17,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[18,6] cannot find symbol
+[ERROR]   symbol:   class NotBlank
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[19,6] cannot find symbol
+[ERROR]   symbol:   class Size
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[22,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[25,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[28,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[31,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[34,6] cannot find symbol
+[ERROR]   symbol:   class OneToMany
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[34,49] cannot find symbol
+[ERROR]   symbol:   variable CascadeType
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[34,74] cannot find symbol
+[ERROR]   symbol:   variable FetchType
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[37,6] cannot find symbol
+[ERROR]   symbol:   class PrePersist
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/EquipmentCategory.java:[43,6] cannot find symbol
+[ERROR]   symbol:   class PreUpdate
+[ERROR]   location: class com.Inventory.ims.model.EquipmentCategory
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[16,6] cannot find symbol
+[ERROR]   symbol:   class Id
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[17,6] cannot find symbol
+[ERROR]   symbol:   class GeneratedValue
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[17,32] cannot find symbol
+[ERROR]   symbol:   variable GenerationType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[20,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[21,6] cannot find symbol
+[ERROR]   symbol:   class NotBlank
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[22,6] cannot find symbol
+[ERROR]   symbol:   class Size
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[25,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[26,6] cannot find symbol
+[ERROR]   symbol:   class Size
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[29,6] cannot find symbol
+[ERROR]   symbol:   class ManyToOne
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[29,24] cannot find symbol
+[ERROR]   symbol:   variable FetchType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[30,6] cannot find symbol
+[ERROR]   symbol:   class JoinColumn
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[33,6] cannot find symbol
+[ERROR]   symbol:   class Size
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[36,6] cannot find symbol
+[ERROR]   symbol:   class Size
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[39,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[42,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[46,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[49,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[53,6] cannot find symbol
+[ERROR]   symbol:   class Enumerated
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[53,17] cannot find symbol
+[ERROR]   symbol:   variable EnumType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[54,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[57,6] cannot find symbol
+[ERROR]   symbol:   class Enumerated
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[57,17] cannot find symbol
+[ERROR]   symbol:   variable EnumType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[58,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[61,6] cannot find symbol
+[ERROR]   symbol:   class Size
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[64,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[67,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[70,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[73,6] cannot find symbol
+[ERROR]   symbol:   class Column
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[76,6] cannot find symbol
+[ERROR]   symbol:   class OneToMany
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[76,50] cannot find symbol
+[ERROR]   symbol:   variable CascadeType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[76,75] cannot find symbol
+[ERROR]   symbol:   variable FetchType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[79,6] cannot find symbol
+[ERROR]   symbol:   class OneToMany
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[79,50] cannot find symbol
+[ERROR]   symbol:   variable CascadeType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[79,75] cannot find symbol
+[ERROR]   symbol:   variable FetchType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[82,6] cannot find symbol
+[ERROR]   symbol:   class OneToMany
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[82,50] cannot find symbol
+[ERROR]   symbol:   variable CascadeType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[82,75] cannot find symbol
+[ERROR]   symbol:   variable FetchType
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[93,6] cannot find symbol
+[ERROR]   symbol:   class PrePersist
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[99,6] cannot find symbol
+[ERROR]   symbol:   class PreUpdate
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/Equipment.java:[167,6] cannot find symbol
+[ERROR]   symbol:   class Transient
+[ERROR]   location: class com.Inventory.ims.model.Equipment
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[12,6] cannot find symbol
+[ERROR]   symbol:   class Id
+[ERROR]   location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[13,6] cannot find symbol
+[ERROR]   symbol:   class GeneratedValue
+[ERROR]   location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[13,32] cannot find symbol
+[ERROR]   symbol:   variable GenerationType
+[ERROR]   location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[16,6] cannot find symbol
+[ERROR]   symbol:   class ManyToOne
+[ERROR]   location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[16,24] cannot find symbol
+[ERROR]   symbol:   variable FetchType
+[ERROR]   location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[17,6] cannot find symbol
+[ERROR]   symbol:   class JoinColumn
+[ERROR]   location: class com.Inventory.ims.model.AuditTrail
+[ERROR] /C:/Users/habin/Downloads/ims/src/main/java/com/Inventory/ims/model/AuditTrail.java:[20,6] cannot find symbol
+[ERROR]   symbol:   class ManyToOne
+[ERROR]   location: class com.Inventory.ims.model.AuditTrail
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

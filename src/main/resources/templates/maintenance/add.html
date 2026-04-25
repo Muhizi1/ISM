@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Schedule Maintenance</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Schedule Maintenance</h1>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <form th:action="@{/maintenance/add}" th:object="${record}" method="post">
+                                <div class="mb-3">
+                                    <label for="equipment" class="form-label">Equipment</label>
+                                    <select class="form-select" id="equipment" th:field="*{equipment}" required>
+                                        <option value="">-- Select Equipment --</option>
+                                        <option th:each="item : ${equipment}" 
+                                                th:value="${item.id}" 
+                                                th:text="${item.assetTag + ' - ' + item.brand + ' ' + item.model}">Equipment</option>
+                                    </select>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('equipment')}" th:errors="*{equipment}"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="maintenanceType" class="form-label">Maintenance Type</label>
+                                    <select class="form-select" id="maintenanceType" th:field="*{maintenanceType}" required>
+                                        <option th:each="type : ${types}" 
+                                                th:value="${type}" th:text="${type}">Type</option>
+                                    </select>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('maintenanceType')}" th:errors="*{maintenanceType}"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="performedDate" class="form-label">Scheduled Date</label>
+                                    <input type="date" class="form-control" id="performedDate" th:field="*{performedDate}" required>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('performedDate')}" th:errors="*{performedDate}"></div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" th:field="*{description}" rows="3" required placeholder="Describe the maintenance task..."></textarea>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="performedBy" class="form-label">Performed By (Optional)</label>
+                                        <input type="text" class="form-control" id="performedBy" th:field="*{performedBy}" placeholder="Technician name...">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cost" class="form-label">Estimated Cost (Optional)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" step="0.01" class="form-control" id="cost" th:field="*{cost}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/maintenance}" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Schedule
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

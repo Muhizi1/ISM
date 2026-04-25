@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Equipment Management</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Equipment Management</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a th:href="@{/equipment/add}" class="btn btn-sm btn-primary" sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                            <i class="fas fa-plus"></i> Add Equipment
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alerts -->
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> <span th:text="${success}">Success message</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle"></i> <span th:text="${error}">Error message</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form th:action="@{/equipment}" method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" name="search" placeholder="Search by asset tag, serial, brand..." th:value="${search}">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="status">
+                                <option value="">All Status</option>
+                                <option th:each="status : ${T(com.Inventory.ims.model.Equipment.EquipmentStatus).values()}" 
+                                        th:value="${status}" th:text="${status}" th:selected="${status == filterStatus}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="category">
+                                <option value="">All Categories</option>
+                                <option th:each="category : ${categories}" th:value="${category.id}" 
+                                        th:text="${category.name}" th:selected="${category.id == filterCategory}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select" name="condition">
+                                <option value="">All Conditions</option>
+                                <option th:each="condition : ${T(com.Inventory.ims.model.Equipment.ConditionStatus).values()}" 
+                                        th:value="${condition}" th:text="${condition}" th:selected="${condition == filterCondition}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                            <a th:href="@{/equipment}" class="btn btn-outline-secondary">
+                                <i class="fas fa-redo"></i> Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Equipment Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Asset Tag</th>
+                                    <th>Category</th>
+                                    <th>Brand/Model</th>
+                                    <th>Serial Number</th>
+                                    <th>Status</th>
+                                    <th>Condition</th>
+                                    <th>Location</th>
+                                    <th>Assigned To</th>
+                                    <th class="table-actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="equipment : ${equipmentList}">
+                                    <td>
+                                        <strong th:text="${equipment.assetTag}">TAG001</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info" th:text="${equipment.category?.name}">Category</span>
+                                    </td>
+                                    <td>
+                                        <div th:text="${equipment.brand}">Brand</div>
+                                        <small class="text-muted" th:text="${equipment.model}">Model</small>
+                                    </td>
+                                    <td th:text="${equipment.serialNumber ?: 'N/A'}">Serial</td>
+                                    <td>
+                                        <span th:class="|badge bg-${equipment.status.name() == 'AVAILABLE' ? 'success' : 
+                                            (equipment.status.name() == 'ASSIGNED' ? 'info' : 
+                                            (equipment.status.name() == 'UNDER_MAINTENANCE' ? 'warning' : 
+                                            (equipment.status.name() == 'RETIRED' ? 'secondary' : 'danger')))}|"
+                                              th:text="${equipment.status}">Status</span>
+                                    </td>
+                                    <td>
+                                        <span th:class="|badge bg-${equipment.conditionStatus.name() == 'EXCELLENT' ? 'success' : 
+                                            (equipment.conditionStatus.name() == 'GOOD' ? 'primary' : 
+                                            (equipment.conditionStatus.name() == 'FAIR' ? 'warning' : 'danger'))}|"
+                                              th:text="${equipment.conditionStatus}">Condition</span>
+                                    </td>
+                                    <td th:text="${equipment.location ?: 'N/A'}">Location</td>
+                                    <td>
+                                        <div th:if="${equipment.status.name() == 'ASSIGNED'}">
+                                            <span th:text="${equipment.currentAssignment?.user?.fullName}">User Name</span>
+                                        </div>
+                                        <div th:if="${equipment.status.name() != 'ASSIGNED'}">
+                                            <span class="text-muted">Not Assigned</span>
+                                        </div>
+                                    </td>
+                                    <td class="table-actions">
+                                        <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/equipment/view/{id}(id=${equipment.id})}" class="btn btn-outline-primary" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a th:href="@{/equipment/edit/{id}(id=${equipment.id})}" class="btn btn-outline-warning" 
+                                               sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a th:href="@{/assignments/assign(equipmentId=${equipment.id})}" class="btn btn-outline-success" 
+                                               sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')" title="Assign"
+                                               th:if="${equipment.status.name() == 'AVAILABLE'}">
+                                                <i class="fas fa-exchange-alt"></i>
+                                            </a>
+                                            <a th:href="@{/assignments/return/{id}(id=${equipment.currentAssignment?.id})}" class="btn btn-outline-info" 
+                                               sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')" title="Return"
+                                               th:if="${equipment.status.name() == 'ASSIGNED' && equipment.currentAssignment != null}">
+                                                <i class="fas fa-undo"></i>
+                                            </a>
+                                            <a th:href="@{/maintenance/add(equipmentId=${equipment.id})}" class="btn btn-outline-warning" 
+                                               sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')" title="Maintenance">
+                                                <i class="fas fa-tools"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Equipment pagination" th:if="${totalPages > 1}">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:class="${currentPage == 1} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{/equipment(page=${currentPage - 1}, search=${search}, status=${filterStatus}, category=${filterCategory}, condition=${filterCondition})}">
+                                    Previous
+                                </a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(1, totalPages)}" 
+                                th:class="${i == currentPage} ? 'page-item active' : 'page-item'">
+                                <a class="page-link" th:href="@{/equipment(page=${i}, search=${search}, status=${filterStatus}, category=${filterCategory}, condition=${filterCondition})}" 
+                                   th:text="${i}">1</a>
+                            </li>
+                            <li class="page-item" th:class="${currentPage == totalPages} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{/equipment(page=${currentPage + 1}, search=${search}, status=${filterStatus}, category=${filterCategory}, condition=${filterCondition})}">
+                                    Next
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- Empty State -->
+                    <div th:if="${#lists.isEmpty(equipmentList)}" class="text-center py-5">
+                        <i class="fas fa-laptop fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No equipment found</h5>
+                        <p class="text-muted">Try adjusting your search criteria or add new equipment to get started.</p>
+                        <a th:href="@{/equipment/add}" class="btn btn-primary" sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                            <i class="fas fa-plus"></i> Add First Equipment
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Statistics -->
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary" th:text="${totalEquipment}">0</h5>
+                            <p class="card-text">Total Equipment</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-success" th:text="${availableCount}">0</h5>
+                            <p class="card-text">Available</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-info" th:text="${assignedCount}">0</h5>
+                            <p class="card-text">Assigned</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning" th:text="${maintenanceCount}">0</h5>
+                            <p class="card-text">Under Maintenance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

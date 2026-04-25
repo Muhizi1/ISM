@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Maintenance Management</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title ?: 'Maintenance Management'}">Maintenance Management</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a th:href="@{/maintenance/add}" class="btn btn-sm btn-primary" sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                            <i class="fas fa-plus"></i> Schedule Maintenance
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form th:action="@{/maintenance/filter}" method="get" class="row g-3">
+                        <div class="col-md-3">
+                            <select class="form-select" name="type">
+                                <option value="">All Types</option>
+                                <option th:each="type : ${types}" 
+                                        th:value="${type}" th:text="${type}" th:selected="${type.name() == selectedType}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" name="performedBy" placeholder="Performed by..." th:value="${selectedPerformedBy}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" name="startDate" th:value="${startDate}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" name="endDate" th:value="${endDate}">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Maintenance Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Equipment</th>
+                                    <th>Type</th>
+                                    <th>Date</th>
+                                    <th>Performed By</th>
+                                    <th>Cost</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th class="table-actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="record : ${records}">
+                                    <td>
+                                        <div th:text="${record.equipment.assetTag}">TAG001</div>
+                                        <small class="text-muted" th:text="${record.equipment.brand + ' ' + record.equipment.model}">Brand Model</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info" th:text="${record.maintenanceType}">Type</span>
+                                    </td>
+                                    <td th:text="${#temporals.format(record.performedDate, 'MMM dd, yyyy')}">Date</td>
+                                    <td th:text="${record.performedBy ?: 'Pending'}">Performed By</td>
+                                    <td th:text="${record.cost != null ? '$' + record.cost : '-'}">Cost</td>
+                                    <td th:text="${#strings.abbreviate(record.description, 50)}">Description</td>
+                                    <td>
+                                        <span th:class="|badge bg-${record.performedDate != null and record.performedDate.isBefore(T(java.time.LocalDate).now()) ? 'danger' : 'warning'}|"
+                                              th:text="${record.performedDate != null and record.performedDate.isBefore(T(java.time.LocalDate).now()) ? 'Overdue' : 'Scheduled'}">Status</span>
+                                    </td>
+                                    <td class="table-actions">
+                                        <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/maintenance/view/{id}(id=${record.id})}" class="btn btn-outline-primary" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a th:href="@{/maintenance/complete/{id}(id=${record.id})}" class="btn btn-outline-success" 
+                                               sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')" title="Mark Completed">
+                                                <i class="fas fa-check"></i>
+                                            </a>
+                                            <a th:href="@{/maintenance/edit/{id}(id=${record.id})}" class="btn btn-outline-warning" 
+                                               sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div th:if="${#lists.isEmpty(records)}" class="text-center py-5">
+                        <i class="fas fa-tools fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No maintenance records found</h5>
+                        <p class="text-muted">Try adjusting your filters or schedule a new maintenance task.</p>
+                        <a th:href="@{/maintenance/add}" class="btn btn-primary" sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                            <i class="fas fa-plus"></i> Schedule Maintenance
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

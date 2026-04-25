@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Assign Equipment</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Assign Equipment</h1>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <form th:action="@{/assignments/assign}" method="post">
+                                <div class="mb-3">
+                                    <label for="equipmentId" class="form-label">Select Equipment (Available Only)</label>
+                                    <select class="form-select" id="equipmentId" name="equipmentId" required>
+                                        <option value="">-- Choose Equipment --</option>
+                                        <option th:each="item : ${availableEquipment}" 
+                                                th:value="${item.id}" 
+                                                th:text="${item.assetTag + ' - ' + item.brand + ' ' + item.model}">Equipment</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="userId" class="form-label">Select User</label>
+                                    <select class="form-select" id="userId" name="userId" required>
+                                        <option value="">-- Choose User --</option>
+                                        <option th:each="user : ${users}" 
+                                                th:value="${user.id}" 
+                                                th:text="${user.fullName + ' (' + user.username + ')'}">User</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="expectedReturnDate" class="form-label">Expected Return Date</label>
+                                    <input type="date" class="form-control" id="expectedReturnDate" name="expectedReturnDate" required
+                                           th:value="${#temporals.format(T(java.time.LocalDate).now().plusMonths(1), 'yyyy-MM-dd')}">
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/assignments}" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Assign Equipment
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

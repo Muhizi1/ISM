@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Maintenance Details</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Maintenance Details</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a th:href="@{/maintenance}" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 bg-warning">
+                            <h6 class="m-0 font-weight-bold text-dark">Maintenance Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${record.maintenanceType}">Type</h5>
+                            <hr>
+                            <div class="row mb-3">
+                                <div class="col-sm-4 font-weight-bold">Date:</div>
+                                <div class="col-sm-8" th:text="${#temporals.format(record.maintenanceDate, 'MMM dd, yyyy')}">Date</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4 font-weight-bold">Performed By:</div>
+                                <div class="col-sm-8" th:text="${record.performedBy ?: 'Pending'}">Performed By</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4 font-weight-bold">Cost:</div>
+                                <div class="col-sm-8" th:text="${record.cost != null ? '$' + record.cost : 'N/A'}">Cost</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4 font-weight-bold">Description:</div>
+                                <div class="col-sm-8" th:text="${record.description}">Description</div>
+                            </div>
+                            <div class="row mb-3" th:if="${record.completionDate != null}">
+                                <div class="col-sm-4 font-weight-bold">Completion Date:</div>
+                                <div class="col-sm-8" th:text="${#temporals.format(record.completionDate, 'MMM dd, yyyy')}">Date</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 bg-secondary text-white">
+                            <h6 class="m-0 font-weight-bold">Equipment Details</h6>
+                        </div>
+                        <div class="card-body text-center">
+                            <i class="fas fa-tools fa-3x text-muted mb-3"></i>
+                            <h5 th:text="${record.equipment.assetTag}">Asset Tag</h5>
+                            <p class="mb-1" th:text="${record.equipment.brand + ' ' + record.equipment.model}">Brand Model</p>
+                            <a th:href="@{/equipment/view/{id}(id=${record.equipment.id})}" class="btn btn-sm btn-outline-primary">View Equipment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

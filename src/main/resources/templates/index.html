@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .welcome-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 1000px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .welcome-left {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        .welcome-right {
+            padding: 60px 40px;
+        }
+        .welcome-logo {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            color: #3498db;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border: none;
+            padding: 15px 40px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+            color: white;
+        }
+        .btn-outline-primary {
+            border: 2px solid #3498db;
+            color: #3498db;
+            padding: 15px 40px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+        .btn-outline-primary:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="row g-0">
+            <!-- Left Side - Welcome Content -->
+            <div class="col-md-5 welcome-left">
+                <div class="welcome-logo">
+                    <i class="fas fa-boxes"></i>
+                </div>
+                <h2 class="mb-4">Inventory Management System</h2>
+                <p class="mb-4">Airtel Challenge - End User Equipment Management</p>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-number" th:text="${stats?.totalEquipment ?: '4'}">4</div>
+                        <div class="stat-label">Total Equipment</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" th:text="${stats?.totalUsers ?: '3'}">3</div>
+                        <div class="stat-label">Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" th:text="${stats?.activeAssignments ?: '2'}">2</div>
+                        <div class="stat-label">Active Assignments</div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h5><i class="fas fa-shield-alt"></i> Secure & Reliable</h5>
+                    <p class="small">Role-based access control with BCrypt encryption</p>
+                </div>
+            </div>
+            
+            <!-- Right Side - Actions -->
+            <div class="col-md-7 welcome-right">
+                <div class="text-center mb-4">
+                    <h2>Welcome to IMS</h2>
+                    <p class="text-muted">Comprehensive Equipment Management Solution</p>
+                </div>
+                
+                <div class="text-center mb-4">
+                    <a th:href="@{/login}" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login to System
+                    </a>
+                    <a th:href="@{/dashboard}" class="btn-outline-primary">
+                        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                    </a>
+                </div>
+                
+                <!-- Feature Grid -->
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h6>Equipment Tracking</h6>
+                        <p class="small text-muted">Track laptops, desktops, and mobile devices</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h6>Assignment Management</h6>
+                        <p class="small text-muted">Manage equipment assignments and returns</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h6>Maintenance Tracking</h6>
+                        <p class="small text-muted">Schedule and track maintenance activities</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h6>Comprehensive Reports</h6>
+                        <p class="small text-muted">Generate detailed reports and analytics</p>
+                    </div>
+                </div>
+                
+                <!-- System Info -->
+                <div class="alert alert-info mt-4" role="alert">
+                    <h6><i class="fas fa-info-circle"></i> System Information</h6>
+                    <p class="mb-1"><strong>Default Admin:</strong> 24rp01201 / 24rp01530</p>
+                    <p class="mb-0"><strong>Framework:</strong> Spring Boot MVC with H2 Database</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        <a th:href="@{/login}" class="text-decoration-none">Login</a> | 
+                        <a th:href="@{/dashboard}" class="text-decoration-none">Dashboard</a> | 
+                        <a th:href="@{/equipment}" class="text-decoration-none">Equipment</a> | 
+                        <a href="/h2-console" class="text-decoration-none" target="_blank">H2 Console</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

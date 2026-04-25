@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Assignment Details</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Assignment Details</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a th:href="@{/assignments}" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 bg-primary text-white">
+                            <h6 class="m-0 font-weight-bold">General Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table">
+                                <tr>
+                                    <th>Status:</th>
+                                    <td>
+                                        <span th:class="'badge bg-' + (${assignment.status.name() == 'ACTIVE'} ? 'success' : 'info')"
+                                              th:text="${assignment.status}">Status</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Assigned Date:</th>
+                                    <td th:text="${#temporals.format(assignment.assignedDate, 'MMM dd, yyyy HH:mm')}">Date</td>
+                                </tr>
+                                <tr>
+                                    <th>Expected Return:</th>
+                                    <td th:text="${#temporals.format(assignment.expectedReturnDate, 'MMM dd, yyyy')}">Date</td>
+                                </tr>
+                                <tr th:if="${assignment.actualReturnDate != null}">
+                                    <th>Actual Return:</th>
+                                    <td th:text="${#temporals.format(assignment.actualReturnDate, 'MMM dd, yyyy HH:mm')}">Date</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 bg-info text-white">
+                            <h6 class="m-0 font-weight-bold">Assigned User</h6>
+                        </div>
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-circle fa-4x text-muted mb-3"></i>
+                            <h5 th:text="${assignment.user.fullName}">Full Name</h5>
+                            <p class="text-muted" th:text="${assignment.user.email}">Email</p>
+                            <p><strong>Department:</strong> <span th:text="${assignment.user.department}">Dept</span></p>
+                            <a th:href="@{/users/view/{id}(id=${assignment.user.id})}" class="btn btn-sm btn-outline-info">View User Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 bg-secondary text-white">
+                            <h6 class="m-0 font-weight-bold">Equipment Information</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 text-center">
+                                    <i class="fas fa-laptop fa-4x text-muted"></i>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 th:text="${assignment.equipment.assetTag}">Asset Tag</h5>
+                                    <p class="mb-1"><strong th:text="${assignment.equipment.brand + ' ' + assignment.equipment.model}">Brand Model</strong></p>
+                                    <p class="text-muted small" th:text="${'Serial: ' + assignment.equipment.serialNumber}">Serial</p>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <a th:href="@{/equipment/view/{id}(id=${assignment.equipment.id})}" class="btn btn-outline-primary">View Equipment Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

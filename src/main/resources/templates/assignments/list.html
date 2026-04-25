@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{layout :: head}">
+    <title>Assignment Management</title>
+</head>
+<body>
+<div th:replace="~{layout :: header}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{layout :: sidebar}"></div>
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="${title ?: 'Assignment Management'}">Assignment Management</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a th:href="@{/assignments/assign}" class="btn btn-sm btn-primary" sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                            <i class="fas fa-plus"></i> New Assignment
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form th:action="@{/assignments/filter}" method="get" class="row g-3">
+                        <div class="col-md-3">
+                            <select class="form-select" name="status">
+                                <option value="">All Statuses</option>
+                                <option th:each="status : ${statuses}" 
+                                        th:value="${status}" th:text="${status}" th:selected="${status.name() == selectedStatus}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" name="userId">
+                                <option value="">All Users</option>
+                                <option th:each="user : ${users}" th:value="${user.id}" 
+                                        th:text="${user.fullName}" th:selected="${user.id == selectedUser}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" name="equipmentId">
+                                <option value="">All Equipment</option>
+                                <option th:each="item : ${equipment}" th:value="${item.id}" 
+                                        th:text="${item.assetTag}" th:selected="${item.id == selectedEquipment}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                            <a th:href="@{/assignments}" class="btn btn-outline-secondary">
+                                <i class="fas fa-redo"></i> Reset
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Assignments Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Equipment</th>
+                                    <th>Assigned To</th>
+                                    <th>Assigned By</th>
+                                    <th>Assigned Date</th>
+                                    <th>Expected Return</th>
+                                    <th>Actual Return</th>
+                                    <th>Status</th>
+                                    <th class="table-actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="assignment : ${assignments}">
+                                    <td>
+                                        <div th:text="${assignment.equipment.assetTag}">TAG001</div>
+                                        <small class="text-muted" th:text="${assignment.equipment.brand + ' ' + assignment.equipment.model}">Brand Model</small>
+                                    </td>
+                                    <td th:text="${assignment.user.fullName}">User Name</td>
+                                    <td th:text="${assignment.assignedBy.username}">Admin</td>
+                                    <td th:text="${#temporals.format(assignment.assignedDate, 'MMM dd, yyyy')}">Date</td>
+                                    <td th:text="${#temporals.format(assignment.expectedReturnDate, 'MMM dd, yyyy')}">Date</td>
+                                    <td th:text="${assignment.actualReturnDate != null ? #temporals.format(assignment.actualReturnDate, 'MMM dd, yyyy') : '-'}">Date</td>
+                                    <td>
+                                        <span th:class="|badge bg-${assignment.status.name() == 'ACTIVE' ? 'success' : (assignment.status.name() == 'RETURNED' ? 'info' : 'warning')}|"
+                                              th:text="${assignment.status}">Status</span>
+                                    </td>
+                                    <td class="table-actions">
+                                        <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/assignments/view/{id}(id=${assignment.id})}" class="btn btn-outline-primary" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a th:href="@{/assignments/return/{id}(id=${assignment.id})}" class="btn btn-outline-success" 
+                                               sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')" title="Return"
+                                               th:if="${assignment.status.name() == 'ACTIVE'}">
+                                                <i class="fas fa-undo"></i>
+                                            </a>
+                                            <a th:href="@{/assignments/delete/{id}(id=${assignment.id})}" class="btn btn-outline-danger" 
+                                               sec:authorize="hasRole('SYSADMIN')" title="Delete"
+                                               onclick="return confirm('Are you sure you want to delete this assignment?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div th:if="${#lists.isEmpty(assignments)}" class="text-center py-5">
+                        <i class="fas fa-exchange-alt fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No assignments found</h5>
+                        <p class="text-muted">Try adjusting your filters or create a new assignment.</p>
+                        <a th:href="@{/assignments/assign}" class="btn btn-primary" sec:authorize="hasAnyRole('SYSADMIN', 'MANAGER')">
+                            <i class="fas fa-plus"></i> New Assignment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{layout :: footer}"></div>
+</body>
+</html>

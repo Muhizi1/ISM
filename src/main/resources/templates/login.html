@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Inventory Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+        }
+        .login-left {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        .login-right {
+            padding: 60px 40px;
+        }
+        .login-logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+        .feature-item {
+            margin: 20px 0;
+            text-align: left;
+        }
+        .feature-item i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="row g-0">
+            <!-- Left Side - Features -->
+            <div class="col-md-5 login-left">
+                <div class="login-logo">
+                    <i class="fas fa-boxes"></i>
+                </div>
+                <h3 class="mb-4">Inventory Management System</h3>
+                <p class="mb-4">Airtel Challenge - End User Equipment Management</p>
+                
+                <div class="feature-item">
+                    <i class="fas fa-laptop"></i>
+                    <span>Track laptops, desktops, and mobile devices</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Manage equipment assignments and returns</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-tools"></i>
+                    <span>Maintenance tracking and scheduling</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Comprehensive reporting and analytics</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure role-based access control</span>
+                </div>
+            </div>
+            
+            <!-- Right Side - Login Form -->
+            <div class="col-md-7 login-right">
+                <div class="text-center mb-4">
+                    <h2>Welcome Back</h2>
+                    <p class="text-muted">Please login to your account</p>
+                </div>
+                
+                <!-- Alert Messages -->
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span th:text="${error}">Invalid username or password!</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                
+                <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle"></i>
+                    <span th:text="${message}">You have been logged out successfully.</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                
+                <form th:action="@{/login}" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">
+                            <i class="fas fa-user"></i> Username
+                        </label>
+                        <input type="text" class="form-control" id="username" name="username" 
+                               placeholder="Enter your username" required autofocus>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password" 
+                               placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember-me">
+                        <label class="form-check-label" for="remember-me">
+                            Remember me
+                        </label>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-login">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i>
+                        Default Admin: Username: 24rp01201 | Password: 24rp01530
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
